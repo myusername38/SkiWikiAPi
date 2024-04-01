@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Diagnostics.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
+using VailInstructorWikiApi.DTOs.User;
 using VailInstructorWikiApi.Models;
 
 namespace VailInstructorWikiApi
@@ -10,6 +11,8 @@ namespace VailInstructorWikiApi
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
         }
+
+        public DbSet<ApplicationUser> ApplicationUsers { get; set; }
 
         public DbSet<Area> Areas { get; set; } = null!;
 
@@ -25,8 +28,11 @@ namespace VailInstructorWikiApi
 
         public DbSet<RunDiscipline> RunDisciplines { get; set; } = null;
 
+        public DbSet<User> Users { get; set; } = null;
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<ApplicationUser>().ToTable("ApplicationUsers");
             modelBuilder.Entity<Area>().ToTable("Area");
             modelBuilder.Entity<Run>().ToTable("Run");
             modelBuilder.Entity<Drill>().ToTable("Drill");
@@ -34,15 +40,7 @@ namespace VailInstructorWikiApi
             modelBuilder.Entity<Skill>().ToTable("Skill");
             modelBuilder.Entity<RunDisciplineDrill>().ToTable("RunDisciplineDrill");
             modelBuilder.Entity<RunDiscipline>().ToTable("RunDiscipline");
-
-            modelBuilder.Entity<Drill>()
-                .HasKey(d => d.Id);
-
-            modelBuilder.Entity<Skill>()
-                .HasKey(s => s.Id);
-
-            modelBuilder.Entity<Level>()
-                .HasKey(l => l.Id);
+            modelBuilder.Entity<User>().ToTable("User");
 
             modelBuilder.Entity<RunDisciplineDrill>()
                 .HasKey(rd => new { rd.RunDisciplineId, rd.DrillId });
@@ -58,6 +56,12 @@ namespace VailInstructorWikiApi
               .WithMany(l => l.Skills)
               .HasForeignKey(s => s.LevelId)
               .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<RunDiscipline>()
+               .HasOne(rd => rd.Level)
+               .WithMany(l => l.RunDisciplines)
+               .HasForeignKey(rd => rd.LevelId)
+               .OnDelete(DeleteBehavior.Cascade);
 
             /* many to many */
 

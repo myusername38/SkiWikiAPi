@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using VailInstructorWikiApi.DTOs;
+using VailInstructorWikiApi.Enums;
 using VailInstructorWikiApi.Models;
 
 namespace VailInstructorWikiApi.Services

@@ -6,17 +6,19 @@ namespace VailInstructorWikiApi.Models
 {
 	public class Level
 	{
-		public int Id;
+		public int Id { get; set; }
 
-		public Discipline Discpline;
+		public Discipline Discpline { get; set; }
 
-		public int LevelNumber;
+        public int LevelNumber { get; set; }
 
-		public string Description;
+        public string Description { get; set; }
 
-		public string Url;
+        public string Url { get; set; }
 
-		public virtual ICollection<Skill> Skills { get; set; }
+        public virtual ICollection<Skill> Skills { get; set; }
+
+        public virtual ICollection<RunDiscipline> RunDisciplines { get; set; }
     }
 }
 

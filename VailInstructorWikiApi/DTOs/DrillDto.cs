@@ -11,8 +11,6 @@ namespace VailInstructorWikiApi.DTOs
 
         public string Url { get; set; }
 
-        public int LevelId { get; set; }
-
     }
 }
 

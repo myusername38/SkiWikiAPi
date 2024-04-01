@@ -6,13 +6,13 @@ namespace VailInstructorWikiApi.Models
 {
 	public class Drill
 	{
-		public int Id;
+		public int Id { get; set; }
 
-		public Discipline Discipline;
+		public Discipline Discipline { get; set; }
 
-		public string Name;
+        public string Name { get; set; }
 
-		public string Url;
+        public string Url { get; set; }
 
         public virtual ICollection<RunDisciplineDrill> RunDisciplineDrills { get; set; }
     }

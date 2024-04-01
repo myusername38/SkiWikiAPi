@@ -2,6 +2,7 @@
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 using VailInstructorWikiApi.DTOs;
+using VailInstructorWikiApi.Enums;
 using VailInstructorWikiApi.Models;
 
 namespace VailInstructorWikiApi.Services
@@ -31,6 +32,15 @@ namespace VailInstructorWikiApi.Services
                 .Include(rd => rd.Level)
                 .ToListAsync();
             return runDisciplines;
+        }
+
+        public async Task<RunDiscipline> GetRunDisciplineByRunAndDiscipline(int runId, Discipline discpline) {
+            var runDiscipline = await _dbContext.RunDisciplines
+                .Where(rd => rd.Discipline == discpline)
+                .Include(rd => rd.Level)
+                .FirstOrDefaultAsync();
+            return runDiscipline;
+               
         }
 
         public async Task<RunDiscipline> CreateRunDiscipline(RunDisciplineDto runDisciplineDto)

@@ -22,6 +22,11 @@
     </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="6.0.13" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
+    <PackageReference Include="MailKit" Version="4.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="6.0.16" />
+    <PackageReference Include="RazorEngineCore" Version="2022.8.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="6.0.13" />
   </ItemGroup>
 
   <ItemGroup>
@@ -42,6 +47,12 @@
     <None Remove="DTOs\" />
     <None Remove="DTOs\RequestDtos\" />
     <None Remove="DTOs\ResponseDtos\" />
+    <None Remove="Files\" />
+    <None Remove="Files\EmailTemplates\" />
+    <None Remove="DTOs\User\" />
+    <None Remove="Models\User\" />
+    <None Remove="Services\Email\" />
+    <None Remove="Repos\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,6 +63,12 @@
     <Folder Include="DTOs\" />
     <Folder Include="DTOs\RequestDtos\" />
     <Folder Include="DTOs\ResponseDtos\" />
+    <Folder Include="Files\" />
+    <Folder Include="Files\EmailTemplates\" />
+    <Folder Include="DTOs\User\" />
+    <Folder Include="Models\User\" />
+    <Folder Include="Services\Email\" />
+    <Folder Include="Repos\" />
   </ItemGroup>
   
 </Project>

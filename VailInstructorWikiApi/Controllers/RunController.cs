@@ -39,7 +39,7 @@ namespace VailInstructorWikiApi.Controllers
             return runs.ToList();
         }
 
-        [HttpGet("get-run-by-areaId/{id}")]
+        [HttpGet("get-run-by-areaId/{areaId}/")]
         public async Task<ActionResult<IEnumerable<Run>>> GetRunsByAreaId(int areaId)
         {
             var runs = await _runService.GetRunsByAreaId(areaId);

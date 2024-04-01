@@ -6,6 +6,7 @@ using VailInstructorWikiApi.Services;
 using VailInstructorWikiApi.Models;
 using VailInstructorWikiApi.DTOs.RequestDtos;
 using VailInstructorWikiApi.DTOs.ResponseDtos;
+using VailInstructorWikiApi.Enums;
 
 namespace VailInstructorWikiApi.Controllers
 {
@@ -41,6 +42,27 @@ namespace VailInstructorWikiApi.Controllers
             }
 
             var linkedDrills = await _runDisciplineDrillService.GetLinkedDrills(id);
+
+            var runDisciplineDto = new RunDisciplineWithDrillsDto
+            {
+                RunDiscipline = runDiscipline,
+                Drills = linkedDrills,
+
+            };
+
+            return Ok(runDisciplineDto);
+        }
+
+        [HttpGet("get-run-discipline-by-runId-discipline/{runId}/{discipline}")]
+        public async Task<ActionResult<RunDisciplineWithDrillsDto>> GetRunDisciplineById(int runId, Discipline discpline)
+        {
+            var runDiscipline = await _runDisciplineService.GetRunDisciplineByRunAndDiscipline(runId, discpline);
+            if (runDiscipline == null)
+            {
+                return NotFound();
+            }
+
+            var linkedDrills = await _runDisciplineDrillService.GetLinkedDrills(runDiscipline.Id);
 
             var runDisciplineDto = new RunDisciplineWithDrillsDto
             {

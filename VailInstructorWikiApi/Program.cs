@@ -1,8 +1,13 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using VailInstructorWikiApi;
+using VailInstructorWikiApi.Auth;
+using VailInstructorWikiApi.DTOs.User;
+using VailInstructorWikiApi.Models.Configuration;
+using VailInstructorWikiApi.Repos;
 using VailInstructorWikiApi.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -35,7 +40,25 @@ builder.Services.AddTransient<RunDisciplineDrillService>();
 builder.Services.AddTransient<RunDisciplineService>();
 builder.Services.AddTransient<RunService>();
 builder.Services.AddTransient<SkillService>();
+builder.Services.AddTransient<IAuthService, AuthService>();
+builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IEmailService, EmailService>();
 
+builder.Services.AddIdentity<ApplicationUser, IdentityRole>()
+            .AddEntityFrameworkStores<ApplicationDbContext>()
+            .AddDefaultTokenProviders();
+builder.Services.AddAuthorization(options =>
+{
+    options.AddPolicy("Admin",
+        policy => policy.Requirements.Add(new RoleRequirement(AuthRole.Admin)));
+    options.AddPolicy("Contributor",
+        policy => policy.Requirements.Add(new RoleRequirement(AuthRole.Contributor)));
+});
+
+builder.Services.Configure<MailSettings>(options => builder.Configuration.GetSection("MailSettings").Bind(options));
+
+// Add Repos
+builder.Services.AddTransient<UserRepo>();
 
 builder.Services.AddControllersWithViews();
 
